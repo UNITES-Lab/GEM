@@ -1,0 +1,4 @@
+[submodule "r2_gaussian"]
+	path = r2_gaussian
+	url = https://github.com/Ruyi-Zha/r2_gaussian.git
+	branch = main
