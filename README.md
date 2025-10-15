@@ -1,8 +1,8 @@
-# CryoNeRF
+# GEM
 
-CryoNeRF is a computational tool for homogeneous and heterogeneous (conformational and compositional) cryo-EM reconstruction in Euclidean 3D space.
+GEM is a computational tool for efficient and accurate homogeneous cryo-EM reconstruction in Euclidean 3D space.
 
-Copyright (C) 2025 Huaizhi Qu, Xiao Wang, Yuanyuan Zhang, Sheng Wang, William Stafford Noble and Tianlong Chen.
+Copyright (C) 2025 Huaizhi Qu, Xiao Wang, Gengwei Zhang, Jie Peng and Tianlong Chen.
 
 License: GPL v3. (If you are interested in a different license, for example, for commercial use, please contact us.)
 
@@ -12,38 +12,30 @@ For technical problems or questions, please reach to Huaizhi Qu (huaizhiq@cs.unc
 
 ### Citation
 
-Huaizhi Qu, Xiao Wang, Yuanyuan Zhang, Sheng Wang, William Stafford Noble & Tianlong Chen. CryoNeRF: reconstruction of homogeneous and heterogeneous cryo-EM structures using neural radiance field. Biorxiv, 2025. Paper
+GEM: 3D Gaussian Splatting for Efficient and Accurate Cryo-EM Reconstruction
+Huaizhi Qu, Xiao Wang, Gengwei Zhang, Jie Peng and Tianlong Chen.
 
 ```
-
-@misc{qu_cryonerf:_2025,
-	title = {{CryoNeRF}: reconstruction of homogeneous and heterogeneous cryo-{EM} structures using neural radiance field},
-	shorttitle = {{CryoNeRF}},
-	url = {https://www.biorxiv.org/content/10.1101/2025.01.10.632460v1},
-	doi = {10.1101/2025.01.10.632460},
-	language = {en},
-	urldate = {2025-02-04},
-	publisher = {bioRxiv},
-	author = {Qu, Huaizhi and Wang, Xiao and Zhang, Yuanyuan and Wang, Sheng and Noble, William Stafford and Chen, Tianlong},
-	month = jan,
-	year = {2025},
+@misc{qu2025gem3dgaussiansplatting,
+      title={GEM: 3D Gaussian Splatting for Efficient and Accurate Cryo-EM Reconstruction}, 
+      author={Huaizhi Qu and Xiao Wang and Gengwei Zhang and Jie Peng and Tianlong Chen},
+      year={2025},
+      eprint={2509.25075},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2509.25075}, 
 }
-
 ```
-
-### Checkpoints & Files
-
-The checkpoints for all experiments in our paper and the reconstructions can be found at https://doi.org/10.5281/zenodo.14602456.
 
 ### Installation
 
 #### 1. Clone the repository to your computer
 
 ```bash
-git clone https://github.com/UNITES-Lab/CryoNeRF.git && cd CryoNeRF
+git clone https://github.com/UNITES-Lab/GEM.git && cd GEM
 ```
 
-#### 2. Configure Python environment for CryoNeRF
+#### 2. Configure Python environment for GEM
 
 1. Install conda at https://conda-forge.org/
 
@@ -56,7 +48,7 @@ git clone https://github.com/UNITES-Lab/CryoNeRF.git && cd CryoNeRF
    and activate the environmentt
 
    ```bash
-   conda activate cryonerf
+   conda activate GEM
    ```
 
    To deactivate
@@ -65,17 +57,11 @@ git clone https://github.com/UNITES-Lab/CryoNeRF.git && cd CryoNeRF
    conda deactivate
    ```
 
-3. After setting up `cryonerf` environment, install `tiny-cuda-nn`
-
-   ```bash
-   pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch --no-build-isolation
-   ```
-
 ### Data Preparation
 
 #### Preparation for New Datasets
 
-CryoNeRF can be easily applied to new datasets not used in our paper. When applying CryoNeRF to these new datasets, unprocessed datasets, we follow similar processes to cryoDRGN, which contains:
+GEM can be easily applied to new datasets not used in our paper. When applying GEM to these new datasets, unprocessed datasets, we follow similar processes to cryoDRGN, which contains:
 
 1. Consensus reconstruction [using cryoSPARC.](https://ez-lab.gitbook.io/cryodrgn/cryodrgn-empiar-10076-tutorial#id-2-consensus-reconstruction-optional)
 
@@ -95,7 +81,7 @@ CryoNeRF can be easily applied to new datasets not used in our paper. When apply
       cryodrgn parse_ctf_csparc /PATH/TO/YOUR/CS/FILE -o ctf.pkl
       ```
 
-3. Perform reconstruction with the extracted CTF and pose using CryoNeRF.
+3. Perform reconstruction with the extracted CTF and pose using GEM.
 
 After processing, please put 
 
@@ -107,11 +93,11 @@ into the same folder and use `--dataset-dir` to specify the directory of the dat
 
 #### Dataset Downloading
 
-[EMPIAR-10028](https://www.ebi.ac.uk/empiar/EMPIAR-10028/), [EMPIAR-10049](https://www.ebi.ac.uk/empiar/EMPIAR-10049/), [EMPIAR-10180](https://www.ebi.ac.uk/empiar/EMPIAR-10180/), [EMPIAR-10076](https://www.ebi.ac.uk/empiar/EMPIAR-10076/) can be downloaded from the [EMPIAR website](https://www.ebi.ac.uk/empiar/). [IgG-1D](https://zenodo.org/records/11629428/files/IgG-1D.zip?download=1) and [Ribosembly](https://zenodo.org/records/12528292/files/Ribosembly.zip?download=1) can be downloaded by clicking the link.
+[EMPIAR-10005](https://www.ebi.ac.uk/empiar/EMPIAR-10005/), [EMPIAR-10028](https://www.ebi.ac.uk/empiar/EMPIAR-10028/), [EMPIAR-10049](https://www.ebi.ac.uk/empiar/EMPIAR-10049/), [EMPIAR-10076](https://www.ebi.ac.uk/empiar/EMPIAR-10076/) can be downloaded from the [EMPIAR website](https://www.ebi.ac.uk/empiar/).
 
 ### Usage
 
-The commands for CryoNeRF are:
+The commands for GEM are:
 
 ```bash
 -h, –help
@@ -120,7 +106,7 @@ show this help message and exit
 –dataset-dir STR
 Root dir for datasets. It should be the parent folder of the dataset you want to reconstruct. (default: ‘’)
 
-–dataset {empiar-10028, empiar-10076, empiar-10049, empiar-10180, IgG-1D, Ribosembly, uniform, cooperative, noncontiguous,}
+–dataset {empiar-10028, empiar-10076, empiar-10049, empiar-10005}
 Which dataset to use. Default as “” for new datasets. (default: ‘’)
 
 –particles {None}|STR|{[STR [STR …]]}
@@ -219,7 +205,7 @@ For example, if you only want to use GPU 0 on your server, you can add `CUDA_VIS
 
 ### Training
 
-Please refer to [Preparation for New Datasets Section](https://github.com/UNITES-Lab/CryoNeRF?tab=readme-ov-file#preparation-for-new-datasets).  To launch training, an example command would be like:
+Please refer to [Preparation for New Datasets Section](https://github.com/UNITES-Lab/GEM?tab=readme-ov-file#preparation-for-new-datasets).  To launch training, an example command would be like:
 ```bash
 python main.py --size 128 --save-dir /PATH/TO/SAVE --dataset-dir /PATH/TO/FOLDER \
 	--batch-size 2 --epochs 60 --nerf-hid-dim 128 --nerf-hid-layer-num 3 \
